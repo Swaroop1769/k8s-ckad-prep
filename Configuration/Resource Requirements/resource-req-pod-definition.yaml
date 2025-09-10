@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-color
+  labels:
+    name: simple-webapp-color
+spec:
+  containers:
+  - name: simple-webapp-color
+    image: simple-webapp-color
+    ports:
+      - containerPort: 8080
+    resources:
+      requests:
+      memory: "1Gi"
+      cpu: 1
+
+# 1 count of CPU means = 1 vCPU/Core for that container
+# memory resource => Gi = Gibibyte = 1024^3 bytes
+# memory resource => GB = Gigabyte = 1000^3 bytes
+#limits -> limits are set for each container within a pod 
+      limits:
+        memory: "2Gi"
+        cpu: 2
+
+## a pod can use more memory than limit, but constantly the pod will be terminated with logs as OOM(out of memory)Killed

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+
+## kubectl create -f namespace-dev.yml
+
+## or kubectl create namespace dev
+# kubectl get pods --namespace=dev 
+## kubectl get pods (for default namespace this is)
+## kubectl get pods --namespace=prod
+# what if we want to change the namespace to dev permanently without always setting namespace for every command?
+# kubectl config set-context $(kubectl current-context) --namespace=dev
+
+# kubectl get pods --all-namespaces
+
+#imperative commands:
+# kubectl expose pod redis --port=6379 --name=redis-service --type=ClusterIP
+
+
+# to create a pod --> kubectl run
+# to create a deployment/namespace --> kubectl create 

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: memory-resource-constraint
+spec:
+  limits:
+  - default:
+      memory: "16Gi"
+    defaultRequest:
+      memory: "16Gi"
+    max:
+      memory: "1Gi"
+    min:
+      memory: "1500Mi"
+    type: Container

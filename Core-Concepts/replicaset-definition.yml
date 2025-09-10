@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-rc
+  labels:
+    app: demo-app
+    type: front-end
+  
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: demo-pod-app
+        type: front-end
+    spec:
+      containers:
+        - name: redis-image
+          image: redis
+  replicas: 3
+# Major difference between replication controller and replica set (rs requires a selector block)
+# selector helps identify what pods fall under it...but why? before defining rs if there are any pods with same labels in order to consider those selector is used.
+  selector:
+    matchLabels:
+      type: front-end
+
+#kubectl create -f replicaset-definition.yml
+#kubectl get replicaset
+#kubectl get pods
+
+
+# to scale replica set we can change the replicas from 3 --> 6(say) in the yml file and run the below command
+# kubectl replace -f replicaset-definition.yml
+#second way is 
+#kubectl scale --replicas=6 -f replicaset-definition.yml or kubectl scale --replicas=6 replicaset myapp-replicaset
+#kubectl delete replicaset my-app-replicaset
+
+# kubectl get pods -o wide
+
+

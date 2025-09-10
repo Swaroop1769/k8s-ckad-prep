@@ -1,0 +1,32 @@
+## taints are set on nodes and tolerations are set on pods
+
+# kubectl taint nodes <node-name> key=value:taint-effect    -->>>> what happens to pods that do not tolerate this taint
+
+### there are 3 taint effects
+# NoSchedule: Pods that do not tolerate this taint will not be scheduled on the node  
+# PreferNoSchedule: Kubernetes will try to avoid placing a pod that does not tolerate this taint on the node, but it is not guaranteed.
+# NoExecute: Pods that do not tolerate this taint will be evicted from the node
+## kubectl taint nodes node1 app=blue:NoSchedule
+
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: myapp-pod
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+  tolerations:
+  - key: "app"
+    operator: "Equal"
+    value: "blue"
+    effect: "NoSchedule"
+
+
+### we've seen these taints and tolerations on worker nodes, there's also master node.....!!!
+### by default master node is tainted, we can check it by giving below command:
+## kubectl describe node kubemaster | grep Taint
+### ---->>> output ---->>node-role.kubernetes.io/control-plane:NoSchedule
+
+### to untaint a node
+#kubectl taint nodes controlplane node-role.kubernetes.io/control-plane:NoSchedule-

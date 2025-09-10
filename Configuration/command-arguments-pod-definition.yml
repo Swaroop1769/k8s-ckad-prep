@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+    - name: ubuntu-sleeper
+      image: ubuntu-sleeper
+      command: ["sleep2.0"] # command field overrides the entrypoint instruction
+      args: ["10"] # args field overrides the command instruction
+
+
+## when asked to edit a deployment --> kubectl edit deployment my-deployment
+
+
+#### kubectl replace --force -f /temp/kubectl-edit    ###this is quite important
+
