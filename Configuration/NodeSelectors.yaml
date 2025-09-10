@@ -1,0 +1,17 @@
+apiVersion:
+kind: Pod
+metadata:
+  name: myapp-pod
+spec:
+  containers:
+  - name: data-processor
+    image: data-processor
+  nodeSelector:
+    size: large
+
+### nodeSelector is used to constrain a pod to only be able to run on a particular node or set of nodes
+
+## kubectl label nodes <node-name> <label-key>=<label-value>
+# example: kubectl label nodes node-1 size=large
+
+## if we want to assign multiple labels say large or medium size nodes??? to achieve that we can use node affinity
