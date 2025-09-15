@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: simple-webapp
+    labels:
+      app: simple-webapp
+spec:
+    containers:
+    - name: web-app
+      image: web-app
+      ports:
+        - containerPort: 8080
+    initContainers:
+    - name: log-shiper
+      image: busybox
+      command: 'setup-log-shipper.sh'
+      restartPolicy: Always
