@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    app: simple-webapp
+spec:
+  containers:
+  - name: simple-webapp
+    image: simple-webapp
+    ports:
+    - containerPort: 8080
+    livenessProbe: # just the name changes instead of readinessProbe
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 15 ## app takes 15 sec to start
+      periodSeconds: 20  ## check every 20 sec
+      failureThreshold: 3 ## after 3 failures mark it as unhealthy
+    # livenessProbe:  ## other ways for liveness probe
+    #   tcpSocket:
+    #     port: 3306
+    # livenessProbe:
+    #    exec:
+    #      command:
+    #      - cat
+    #      - /app/is_healthy
+
+
+
+### A liveness probe can be configured on container to periodically test whether the application within the container is actually healthy...
+
+# If the test fails, container is considered unhealthy and is destroyed and recreated.
