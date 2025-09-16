@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: math-add-job
+spec:
+
+  #completions: 3  to run the job 3 times
+  #parallelism: 2  to run 2 pods in parallel
+  template:
+    spec:
+      containers:
+      - name: math
+        image: ubuntu
+        command: ['expr', '3', '+', '5']
+      restartPolicy: Never ## or even onFailure can be defined
+      #restartPolicy: OnFailure
+
+
+### kubectl apply -f Job-definition.yaml
+### kubectl get jobs
+### kubectl get pods
+### kubectl logs <pod-name> to see the output of the job
+
+### kubectl delete job math-add-job

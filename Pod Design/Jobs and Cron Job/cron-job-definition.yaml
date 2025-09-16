@@ -1,0 +1,23 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: reporting-cron-job
+spec: ## 3 spec sections 1. cronjob spec 2. job spec 3. pod spec
+  schedule: "*/1 * * * *"  # every 1 minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          completions: 3  # to run the job 3 times
+          parallelism: 2  # to run 2 pods in parallel
+          template:
+            spec:
+              containers:
+              - name: reporting-tool
+                image: reporting-tool
+              
+              restartPolicy: Never ## or even onFailure can be defined
+              #restartPolicy: OnFailure
+
+### kubectl apply -f cron-job-definition.yaml
+### kubectl get cronjob

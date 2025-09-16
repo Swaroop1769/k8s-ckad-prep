@@ -1,0 +1,18 @@
+apiVersion: v1 
+kind:
+metadata:
+  name: simple-webapp
+  labels:
+    app: App1
+    function: Frontend
+
+spec:
+  containers:
+    - name: web-app
+      image: web-app
+      ports:
+        - containerPort: 8080
+
+
+## to select the pod with labels use the command
+# kubectl get pods --selector app=App1

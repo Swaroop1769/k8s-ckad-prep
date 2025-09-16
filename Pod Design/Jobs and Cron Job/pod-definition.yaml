@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: math-job
+spec:
+  containers:
+  - name: math
+    image: ubuntu
+    command: ['expr', '3', '+', '5']
+  restartPolicy: Never ## or even onFailure can be defined
+  #restartPolicy: OnFailure
+
