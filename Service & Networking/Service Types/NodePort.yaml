@@ -1,0 +1,24 @@
+## Nodeports can be in a valid range of 30000-32767
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort
+  ports:
+    -  port: 80        # internal port of the service
+       targetPort: 8080 # port on which the pod is listening
+       nodePort: 30007  # port on which the service will be exposed on the node
+  selector:
+    app: myapp
+    type: frontend
+
+## to link the service to pod, we can make use of labels and selectors
+## we get this selector from the pod definition.yaml file
+
+### kubectl create -f NodePort.yaml
+### kubectl get svc
+
+### what can we do if we have multiple pods running for the same application
+### it uses a Random Algorithm to distribute the traffic across multiple pods

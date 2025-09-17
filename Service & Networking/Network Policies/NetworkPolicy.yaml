@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress ## only ingress traffic is allowed, egress traffic is unaffected and not blocked 
+  - from:
+  - podSelector: # here podselector and namespaceselector are under same element of array and ipblock is another element of array. So basically here an OR operation is happening
+      matchLabels: ## from the first element of array the AND operation is happening, so both labels should match
+        role: api-pod
+    namespaceSelector: ## we can also use namespaceSelector to allow traffic from pods in a specific namespace
+      matchLabels:
+        name: prod ##environment label on the namespace
+  - ipBlock:  ## we can also use ipBlock to allow traffic from a specific CIDR range
+      cidr: 192.168.1.0/24
+    ports:
+    - protocol: TCP
+      port: 3306
+
+## for Ingress or Egress isolation to take place, we need to define both the podSelector and policyTypes
+### kubectl create -f NetworkPolicy.yaml

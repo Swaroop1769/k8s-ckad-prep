@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8080 # port on which the backend pod is exposed
+  selector:   ## we get this selector from the pod definition.yaml file
+    app: myapp
+    type: backend

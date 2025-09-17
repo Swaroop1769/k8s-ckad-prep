@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: app-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Egress ## only egress traffic is allowed, ingress traffic is unaffected and not blocked
+  - Ingress ## only ingress traffic is allowed, egress traffic is unaffected and not blocked
+  ingress:
+    - from:
+      - podSelector: # here podselector and namespaceselector are under same element of array and ipblock is another element of array. So basically here an OR operation is happening
+            matchLabels: ## from the first element of array the AND operation is happening, so both labels should match
+            role: api-pod
+      ports:
+        - protocol: TCP
+          port: 3306
+  egress:
+    - to:
+      - ipBlock:  ## we can also use ipBlock to allow traffic to a specific CIDR range
+          cidr: 192.168.1.0/24
+      ports:
+        - protocol: TCP
+          port: 80
