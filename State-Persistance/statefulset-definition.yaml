@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: mysql-h # headless service name
+  podManagementPolicy: Parallel # OrderedReady
+
+
+### kubectl create -f statefulset-definition.yaml
+### kubectl scale statefulset mysql --replicas=5 to scale the statefulset
+
+## when we scale down the statefulset, the pods are deleted in reverse order
+### kubectl delete statefulset mysql

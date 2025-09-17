@@ -4,3 +4,8 @@ https://kubernetes.io/docs/concepts/services-networking/ingress/
 
 https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types
 
+
+https://kubernetes.github.io/ingress-nginx/examples/rewrite/
+
+https://kubernetes.github.io/ingress-nginx/examples/
+
