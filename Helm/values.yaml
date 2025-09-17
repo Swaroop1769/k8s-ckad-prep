@@ -1,0 +1,14 @@
+image: wordpress:4.8-nginx
+storage: 2061
+passwordEncoded: CSWhfreifbndfvdfjvhfvdfvdfv
+
+
+
+### Helm Commands:
+
+## helm list //to list installed packages
+## helm uninstall my-release //to uninstall a package
+## helm pull --untar bitnami/wordpress //to download a package but not install it and untar it
+## helm install release-4 ./wordpress //to install a package from local directory
+
+
